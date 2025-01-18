@@ -36,23 +36,25 @@ $string['daysdesc'] = 'Number of days of backup to clear';
 $string['enablecron'] = 'Enable CRON';
 $string['enablecrondesc'] = '';
 
+$string['filecountsize'] = '{$a->count} files with a total size of {$a->totalsize}';
+$string['filecountsizereport'] = 'Backup files can be deleted with current settings: {$a}';
+
 $string['filedeletedempty'] = 'There are no backup files to delete.';
 $string['filedeletedfooter'] = 'In total {$a->filecount} backup files were deleted and {$a->filesize} of server space was cleared.';
 $string['filedeletedheader'] = 'The course backup files deleted during this operation are as follows:';
 $string['filename'] = 'File name';
 $string['filesize'] = 'File size';
 
-$string['filecountsizereport'] = 'Backup files can be deleted with current settings: {$a}';
-$string['filecountsize'] = '{$a->count} files with a total size of {$a->totalsize}';
-$string['nofiles'] = 'no files';
 
 $string['minmbytes'] = 'Minimum MBytes';
 $string['minmbytesdesc'] = 'Minimum size (in megabytes) of backup file to drop. The dafault `0` is to remove all old backups. Use a positive value this to keep some small but important backups permanently.';
 
+$string['nofiles'] = 'no files';
+
 $string['pluginname'] = 'Clear backup files';
 
-$string['reportdisabled'] = 'Never';
 $string['reportalways'] = 'Always';
+$string['reportdisabled'] = 'Never';
 $string['reportheading'] = 'Brief report';
 $string['showreportinsettings'] = 'Show brief report on top of this page';
 $string['showreportinsettingsdesc'] = 'Show brief report on the number & size of backup files that can be removed with current settings';
