@@ -37,6 +37,15 @@ if ($hassiteconfig) {
         PARAM_INT // Type of the parameter.
     ));
 
+    // Add a setting for a numeric input field.
+    $settings->add(new admin_setting_configtext(
+        'tool_clearbackupfiles/minmbytes', // This is the setting name.
+        get_string('minmbytes', 'tool_clearbackupfiles'), // This is the setting title.
+        get_string('minmbytesdesc', 'tool_clearbackupfiles'), // This is the setting description.
+        0, // Default value.
+        PARAM_INT // Type of the parameter.
+    ));
+
     // Add a checkbox for enabling/disabling CRON.
     $settings->add(new admin_setting_configcheckbox(
         'tool_clearbackupfiles/enablecron', // This is the setting name.

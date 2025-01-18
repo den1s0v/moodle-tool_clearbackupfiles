@@ -42,6 +42,9 @@ $string['filedeletedheader'] = 'The course backup files deleted during this oper
 $string['filename'] = 'File name';
 $string['filesize'] = 'File size';
 
+$string['minmbytes'] = 'Minimum MBytes';
+$string['minmbytesdesc'] = 'Minimum size (in megabytes) of backup file to drop. The dafault `0` is to remove all old backups. Use a positive value this to keep some small but important backups permanently.';
+
 $string['pluginname'] = 'Clear backup files';
 
 $string['warningalert'] = 'Are you sure you want to continue?';

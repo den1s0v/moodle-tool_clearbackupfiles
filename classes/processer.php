@@ -42,8 +42,9 @@ class tool_clearbackupfiles_processer {
 
         $toolconfig = get_config('tool_clearbackupfiles');
         $days = $toolconfig->days;
+        $minmbytes = $toolconfig->minmbytes;
 
-        $backupfiles = $this->get_backup_files($days);
+        $backupfiles = $this->get_backup_files($days, $minmbytes);
 
         if (!$backupfiles) {
             return null;
@@ -94,19 +95,22 @@ class tool_clearbackupfiles_processer {
 
     /**
      * Returns the backup files that are older than $days days
+     * but not smaller than $minmbytes megabytes.
      *
      * @param int $days
+     * @param int $minmbytes
      * @return array
      */
-    private function get_backup_files($days) {
+    private function get_backup_files($days, $minmbytes) {
         global $DB;
 
         // Calculate the timestamp for the cutoff date.
         $cutofftimestamp = time() - ($days * 24 * 60 * 60);
+        $min_bytes = $minmbytes * 1024 * 1024;
 
         // Fetch files from the last specified number of days.
-        $sql = "SELECT * FROM {files} WHERE mimetype LIKE '%backup%' AND timecreated <= :cutofftimestamp";
-        $params = ['cutofftimestamp' => $cutofftimestamp];
+        $sql = "SELECT * FROM {files} WHERE mimetype LIKE '%backup%' AND timecreated <= :cutofftimestamp AND filesize >= :min_bytes";
+        $params = ['cutofftimestamp' => $cutofftimestamp, 'min_bytes' => $min_bytes];
 
         $backupfiles = $DB->get_records_sql($sql, $params);
         return $backupfiles;
