@@ -42,10 +42,20 @@ $string['filedeletedheader'] = 'The course backup files deleted during this oper
 $string['filename'] = 'File name';
 $string['filesize'] = 'File size';
 
+$string['filecountsizereport'] = 'Backup files can be deleted with current settings: {$a}';
+$string['filecountsize'] = '{$a->count} files with a total size of {$a->totalsize}';
+$string['nofiles'] = 'no files';
+
 $string['minmbytes'] = 'Minimum MBytes';
 $string['minmbytesdesc'] = 'Minimum size (in megabytes) of backup file to drop. The dafault `0` is to remove all old backups. Use a positive value this to keep some small but important backups permanently.';
 
 $string['pluginname'] = 'Clear backup files';
+
+$string['reportdisabled'] = 'Never';
+$string['reportalways'] = 'Always';
+$string['reportheading'] = 'Brief report';
+$string['showreportinsettings'] = 'Show brief report on top of this page';
+$string['showreportinsettingsdesc'] = 'Show brief report on the number & size of backup files that can be removed with current settings';
 
 $string['warningalert'] = 'Are you sure you want to continue?';
 $string['warningmsg'] = 'Please note, clearing of backup files is an irreversible process, you will not be able to restore deleted backup files.';

@@ -81,6 +81,21 @@ if ($hassiteconfig) {
         )
     ));
 
+
+    $options = array(
+        0 => get_string('reportdisabled', 'tool_clearbackupfiles'),
+        // 2 => get_string('reportonce', 'tool_clearbackupfiles'),
+        1 => get_string('reportalways', 'tool_clearbackupfiles')
+    );
+    $settings->add(new admin_setting_configselect(
+        'tool_clearbackupfiles/showreportinsettings',
+        get_string('showreportinsettings', 'tool_clearbackupfiles'),
+        get_string('showreportinsettingsdesc', 'tool_clearbackupfiles'),
+        0,
+        $options
+    ));
+
+
     // Add the settings page to the tools category.
     $ADMIN->add('tools', $settings);
 }
