@@ -28,6 +28,22 @@ if ($hassiteconfig) {
     // Create the new settings page.
     $settings = new admin_settingpage('tool_clearbackupfiles', get_string('pluginname', 'tool_clearbackupfiles'));
 
+
+    if (($showreport = get_config('tool_clearbackupfiles', 'showreportinsettings')) > 0) {
+        // Show report here.
+        $processer = new processer();
+        $count_string = $processer->count_files_to_be_processed();
+        $report_string = get_string('filecountsizereport', 'tool_clearbackupfiles', $count_string);
+
+        // Add information as a heading.
+        $settings->add(new admin_setting_heading(
+            'tool_clearbackupfiles/report',
+            get_string('reportheading', 'tool_clearbackupfiles') . ': '. $report_string,
+            ''
+        ));
+    }
+
+
     // Add a setting for a numeric input field.
     $settings->add(new admin_setting_configtext(
         'tool_clearbackupfiles/days', // This is the setting name.

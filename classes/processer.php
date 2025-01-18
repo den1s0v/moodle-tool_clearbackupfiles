@@ -76,6 +76,36 @@ class tool_clearbackupfiles_processer {
     }
 
     /**
+     * Counts quantity and total size of backup files can be deleted with current settings.
+     *
+     * @return string
+     */
+    public function count_files_to_be_processed() {
+
+        $toolconfig = get_config('tool_clearbackupfiles');
+        $days = $toolconfig->days;
+        $minmbytes = $toolconfig->minmbytes;
+
+        $backupfiles = $this->get_backup_files($days, $minmbytes);
+
+        if (!$backupfiles) {
+
+            return get_string('nofiles', 'tool_clearbackupfiles');
+        }
+
+        $totalfilesize = 0;
+        foreach ($backupfiles as $filedata) {
+
+            $totalfilesize += $filedata->filesize;
+        }
+
+        $filecount = count($backupfiles);
+        $totalsizestr = self::format_bytes($totalfilesize);
+
+        return get_string('filecountsize', 'tool_clearbackupfiles', ['count' => $filecount, 'totalsize' => $totalsizestr]);
+    }
+
+    /**
      * Returns the information of the deleted files.
      *
      * @return array An array of stdClass objects
