@@ -24,6 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
+use tool_clearbackupfiles\processer;
+
 if ($hassiteconfig) {
     // Create the new settings page.
     $settings = new admin_settingpage('tool_clearbackupfiles', get_string('pluginname', 'tool_clearbackupfiles'));

@@ -32,6 +32,9 @@ require_once("$CFG->libdir/formslib.php");
 
 require_once("$CFG->dirroot/admin/tool/clearbackupfiles/confirm_form.php");
 
+use tool_clearbackupfiles\processer;
+
+
 $context = context_system::instance();
 
 $PAGE->set_context($context);
@@ -67,7 +70,7 @@ if ($mform->is_cancelled()) {
 }
 
 if ($dlt == 1) {
-    $clearfileprocesser = new tool_clearbackupfiles_processer();
+    $clearfileprocesser = new processer();
     $clearfileprocesser->execute();
 
     $files = $clearfileprocesser->get_deleted_files();
@@ -94,7 +97,7 @@ if ($dlt == 1) {
         $a = new StdClass();
         $a->filecount = $filecount;
         $filesize = $clearfileprocesser->get_total_file_size();
-        $a->filesize = tool_clearbackupfiles_processer::format_bytes($filesize);
+        $a->filesize = processer::format_bytes($filesize);
 
         echo html_writer::tag('p', get_string('filedeletedheader', 'tool_clearbackupfiles'));
         echo html_writer::table($table);

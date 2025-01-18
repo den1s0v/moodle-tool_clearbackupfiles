@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace tool_clearbackupfiles;
+
 /**
  * Handles the deletion of backup files.
  *
@@ -21,7 +23,7 @@
  * @copyright  2015 Shubhendra Doiphode
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class tool_clearbackupfiles_processer {
+class processer {
 
     /**
      * @var array Contains the deleted files.
@@ -56,7 +58,7 @@ class tool_clearbackupfiles_processer {
             $backupfile = $filestorage->get_file_by_hash($filedata->pathnamehash);
             $backupfile->delete();
 
-            $file = new stdClass();
+            $file = new \stdClass();
             $file->name = $backupfile->get_filename();
             $file->size = $backupfile->get_filesize();
 
