@@ -16,6 +16,8 @@
 
 namespace tool_clearbackupfiles\task;
 
+use tool_clearbackupfiles\processer;
+
 /**
  * Scheduled task definition to delete backup files.
  *
@@ -38,51 +40,28 @@ class cron_task extends \core\task\scheduled_task {
      */
     public function execute() {
         $toolconfig = get_config('tool_clearbackupfiles');
-        $days = $toolconfig->days;
+
         $enablecron = 0;
         if (isset($toolconfig->enablecron)) {
             $enablecron = $toolconfig->enablecron;
         }
 
         if ($enablecron == 1) {
-            $backupfiles = $this->get_backup_files($days);
 
-            if (!$backupfiles) {
-                return null;
-            }
+            // Perform removal.
+            $processer = new processer();
+            $processer->execute();
 
-            $filestorage = get_file_storage();
+            // Report.
+            $deletedfiles = count($processer->get_deleted_files());
+            $totalfilesize = $processer::format_bytes($processer->get_total_file_size());
+            mtrace("Deleted $deletedfiles backup files with a total size of $totalfilesize.");
 
-            foreach ($backupfiles as $filedata) {
-                $backupfile = $filestorage->get_file_by_hash($filedata->pathnamehash);
-                $backupfile->delete();
-            }
-
-            mtrace('Delete backup files.'.'\n');
         } else {
-            mtrace("Delete backup CRON not executed");
+
+            mtrace("Delete backup CRON is not enabled.");
         }
 
         return true; // Finished OK.
-    }
-
-    /**
-     * Gets the backup files to be deleted older than $days.
-     *
-     * @param int $days The cut off amount of days
-     * @return stdClass[]
-     */
-    private function get_backup_files($days) {
-        global $DB;
-
-        // Calculate the timestamp for the cutoff date.
-        $cutofftimestamp = time() - ($days * 24 * 60 * 60);
-
-        // Fetch files from the last specified number of days.
-        $sql = "SELECT * FROM {files} WHERE mimetype LIKE '%backup%' AND timecreated <= :cutofftimestamp";
-        $params = ['cutofftimestamp' => $cutofftimestamp];
-
-        $backupfiles = $DB->get_records_sql($sql, $params);
-        return $backupfiles;
     }
 }
